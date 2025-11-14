@@ -1,1 +1,104 @@
-Этот проект содержит код для вычисления площади и периметра прямоугольника.
+<!doctype html>
+<html lang="ru".
+	<body>
+	<script>
+
+	var products = [{name: "Хлеб", price: 45}, {name: "Молоко", price: 89},{name: "Рис", price: 120}];
+	var basket = [];
+	function showMenu() {
+	    var choice = prompt(
+	        "1. Добавить товар\n" +
+	        "2. Добавить товар в корзину\n" + 
+	        "3. Удалить товар из корзины\n" +
+	        "4. Конечная стоимость корзины\n" +
+	        "5. Показать товары\n" +
+	        "6. Показать корзину\n" +
+	        "0. Выход\n\n" +
+ 	       "Введите номер:"
+	    );
+ 	    if (choice === "1") addProduct();
+	    else if (choice === "2") addToBasket();
+ 	    else if (choice === "3") removeFromBasket();
+	    else if (choice === "4") showTotal();
+	    else if (choice === "5") showProducts();
+	    else if (choice === "6") showBasket();
+	    else if (choice === "0") return;
+	    if (choice !== "0") showMenu();
+	}
+	function addProduct() {
+	    var name = prompt("Введите название товара:");
+	    var price = parseInt(prompt("Введите цену товара:"));
+	    products.push({name: name, price: price});
+	    alert("Товар добавлен!");
+	}
+	function addToBasket() {
+	    var list = "Выберите товар:\n";
+	    for (var i = 0; i < products.length; i++) {
+	        list += (i + 1) + ". " + products[i].name + " - " + products[i].price + " руб.\n";
+ 	   }
+	    var choice = parseInt(prompt(list)) - 1;
+ 	   if (choice >= 0 && choice < products.length) {
+	        var found = false;
+	        for (var i = 0; i < basket.length; i++) {
+ 	           if (basket[i].product === products[choice]) {
+	                basket[i].quantity++;
+	                found = true;
+	                break;
+	            }
+  	      }
+	        if (!found) {
+	          basket.push({product: products[choice], quantity: 1});
+	        }
+	        alert("Товар добавлен в корзину!");
+	    }
+	}
+	function removeFromBasket() {
+	    if (basket.length === 0) {
+	        alert("Корзина пуста!");
+	        return;
+ 	   }
+	    var list = "Выберите товар для удаления:\n";
+	    for (var i = 0; i < basket.length; i++) {
+	        list += (i + 1) + ". " + basket[i].product.name + " - " + basket[i].quantity + " шт.\n";
+	    }
+	    var choice = parseInt(prompt(list)) - 1;
+	    if (choice >= 0 && choice < basket.length) {
+	       basket[choice].quantity--;
+	        if (basket[choice].quantity === 0) {
+	          basket.splice(choice, 1);
+	        }
+	        alert("Товар удален из корзины!");
+	    }
+	}
+	function showTotal() {
+	    var total = 0;
+ 	   for (var i = 0; i < basket.length; i++) {
+	        total += basket[i].product.price * basket[i].quantity;
+	    }
+	    alert("Общая стоимость: " + total + " руб.");
+	}
+	function showProducts() {
+	    var list = "Все товары:\n";
+	    for (var i = 0; i < products.length; i++) {
+	        list += products[i].name + " - " + products[i].price + " руб.\n";
+ 	   }
+	    alert(list);
+	}
+
+	function showBasket() {
+	    if (basket.length === 0) {
+	        alert("Корзина пуста!");
+ 	       return;
+ 	   }
+	    var list = "Корзина:\n";
+	    for (var i = 0; i < basket.length; i++) {
+	        list += basket[i].product.name + " - " + basket[i].quantity + " шт. = " + 
+ 	              (basket[i].product.price *basket[i].quantity) + " руб.\n";
+	    }
+	    alert(list);
+	}
+	showMenu();
+	  </script>
+	</body>
+</html>
+

@@ -1,6 +1,29 @@
-a = 5
-b = 3
-sum_result = a + b
+<!doctype html>
+<html lang="ru".
+	<body>
+		<script>
+		function parseCSV(text) {
+		  var lines = text.split('\n');
+		  var headers = lines[0].split(',');
+		  var result = [];
+  
+		  for (var i = 1; i < lines.length; i++) {
+		    var values = lines[i].split(',');
+ 		    var obj = {};
+ 		    obj[headers[0]] = values[0];
+		    obj[headers[1]] = values[1];
+		    result.push(obj);
+ 		 }
+  
+		  console.log(result); 
+		  return result;
+		}
 
-print(f"Сумма {a} и {b} равна: {sum_result}")
+		parseCSV("name,age\nАлиса,20\nБоб,25");
+    parseCSV("Допустим");
+		</script>
+	</body>
+</html>
+
+
 
